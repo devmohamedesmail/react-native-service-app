@@ -17,7 +17,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <StatusBar style="auto" />
+          <StatusBar style="auto" backgroundColor='black' />
           <AuthProvider>
             <DataProvider>
               <I18nextProvider i18n={i18n}>

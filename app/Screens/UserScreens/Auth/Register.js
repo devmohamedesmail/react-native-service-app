@@ -89,7 +89,7 @@ export default function Register() {
     <Div>
       <Header />
       <ScrollDiv bg={CustomColors.screenColor}>
-        <Div flexDir='column' justifyContent='center' h='100%' mt={50} flex={1} alignItems='center'>
+        <Div flexDir='column' justifyContent='center' h='100%' mt={150} flex={1} alignItems='center'>
           <Div w="100%" px={15} bg="white" pb={100}>
 
             <Div mb={30}>

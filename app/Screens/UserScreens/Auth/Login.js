@@ -83,10 +83,10 @@ export default function Login() {
 
 
   return (
-    <Div>
+    <Div flex={1}>
       <Header />
       <ScrollDiv bg={CustomColors.screenColor}>
-        <Div flexDir='column' justifyContent='center' h='100%' mt={50} flex={1} alignItems='center'>
+        <Div flexDir='column' justifyContent='center' h='100%' mt={150} flex={1} alignItems='center'>
           <Div w="100%" px={15} bg="white" pb={100}>
             <Div mb={30}>
               <Logo h={100} w={100} />

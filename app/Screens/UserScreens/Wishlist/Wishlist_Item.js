@@ -7,12 +7,12 @@ import ConfigApi from '../../../Config/ConfigApi';
 export default function Wishlist_Item({ title, images, description, Deleteitem }) {
     return (
         <Div flexDir='row' bg="white" my={10}>
-            <Div w={100} h={100} bg='red'>
+            <Div w={150} h={150} bg='red'>
                 <Swiper style={{ height: 200 }} showsButtons={false}>
                     {images && images.map((image, index) => (
                         <Image
-                            h={100}
-                            w={100}
+                            h={150}
+                            w={150}
 
                             source={{
                                 uri:
