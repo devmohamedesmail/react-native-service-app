@@ -27,8 +27,8 @@ export default function Ad_Item({ id, image, title, description, handleDelete, h
                 )}
             </Swiper>
             <Div mx={5}>
-                <Text flex={1} fontWeight='bold' >{title} </Text>
-                <Text flex={1} fontWeight='semibold' >{description} </Text>
+                <Text flex={1} fontWeight='bold'fontSize={15} mt={10}>{title} </Text>
+                <Text flex={1} fontWeight='semibold' mt={10} >{description} </Text>
             </Div>
 
             <Div flexDir='row' justifyContent='flex-end'>

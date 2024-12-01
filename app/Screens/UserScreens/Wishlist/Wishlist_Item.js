@@ -4,9 +4,9 @@ import { Image } from "react-native-magnus";
 import Swiper from 'react-native-swiper'
 import ConfigApi from '../../../Config/ConfigApi';
 
-export default function Wishlist_Item({ title, images, description, Deleteitem }) {
+export default function Wishlist_Item({id, title, images, description, Deleteitem }) {
     return (
-        <Div flexDir='row' bg="white" my={10}>
+        <Div id={id} flexDir='row' bg="white" my={10}>
             <Div w={150} h={150} bg='red'>
                 <Swiper style={{ height: 200 }} showsButtons={false}>
                     {images && images.map((image, index) => (

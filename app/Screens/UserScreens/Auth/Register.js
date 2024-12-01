@@ -11,6 +11,8 @@ import Header from '../../../Components/Header/Header'
 import Logo from '../../../Components/Logo/Logo'
 import CustomInput from '../../../CustomComponents/CustomInput'
 import ConfigApi from '../../../Config/ConfigApi'
+import axios from 'axios'
+import Toast from 'react-native-toast-message'
 
 export default function Register() {
   const { t } = useTranslation()
@@ -22,56 +24,113 @@ export default function Register() {
   const { auth, setAuth } = useContext(AuthContext)
 
 
+  // const handleRegisterUser = async () => {
+    
+  //   if (!email || !password || !name) {
+
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: `${t('check-input')}`,
+
+  //       position: 'top',
+  //       visibilityTime: 5000,
+  //     });
+  //     return;
+  //   }
+
+  //   setLoading(true)
+  //   try {
+  //     const response = await axios.post(`${ConfigApi.API_URL}/api/register`, {
+  //       email, name, password
+  //     })
+
+  //     if (response.data.status === 'success') {
+  //       await setAuth(response.data)
+  //       Toast.show({
+  //         type: 'success',
+  //         text1: `${t('register-successful')}`,
+  //         text2: `${t('welocome')} 👋 ${auth.user.name}`,
+  //         position: 'top',
+  //         visibilityTime: 4000,
+  //       });
+  //       setEmail("")
+  //       setPassword("")
+  //       setName("")
+
+  //       setTimeout(() => {
+
+  //         if (auth.user.role === 'admin') {
+  //           navigation.navigate('Dashboard');
+  //         } else {
+  //           navigation.navigate('Home');
+  //         }
+  //       }, 2000);
+  //     }
+  //     setLoading(false)
+  //     console.log(response.data)
+  //   } catch (error) {
+
+  //     setLoading(false)
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: `${t('register-unsuccessful')}`,
+  //       text2: `${t('try-again')}`,
+  //       position: 'top',
+  //       visibilityTime: 4000,
+  //     });
+  //     console.log(error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   const handleRegisterUser = async () => {
     if (!email || !password || !name) {
-
       Toast.show({
         type: 'error',
         text1: `${t('check-input')}`,
-
         position: 'top',
         visibilityTime: 5000,
       });
       return;
     }
-
-    setLoading(true)
+  
+    setLoading(true);
+  
     try {
       const response = await axios.post(`${ConfigApi.API_URL}/api/register`, {
-        email, name, password
-      })
-
+        email,
+        name,
+        password,
+      });
+  
       if (response.data.status === 'success') {
-        await setAuth(response.data)
+        const userData = response.data; // Store the response data
+  
+        await setAuth(userData); // Set authentication data
         Toast.show({
           type: 'success',
           text1: `${t('register-successful')}`,
-          text2: `${t('welocome')} 👋 ${auth.user.name}`,
+          text2: `${t('welocome')} 👋 ${userData.user.name}`, // Use userData directly
           position: 'top',
           visibilityTime: 4000,
         });
-        setEmail("")
-        setPassword("")
-        setName("")
-
+  
+        // Clear input fields
+        setEmail('');
+        setPassword('');
+        setName('');
+  
         setTimeout(() => {
-
-          if (auth.user.role === 'admin') {
+          if (userData.user.role === 'admin') {
             navigation.navigate('Dashboard');
           } else {
             navigation.navigate('Home');
           }
         }, 2000);
       }
-
-
-      setEmail('')
-      setPassword('')
-      setName('')
-      setLoading(false)
     } catch (error) {
-
-      setLoading(false)
+      console.log('Register Error:', error);
       Toast.show({
         type: 'error',
         text1: `${t('register-unsuccessful')}`,
@@ -79,11 +138,10 @@ export default function Register() {
         position: 'top',
         visibilityTime: 4000,
       });
-      console.log(error)
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Div>

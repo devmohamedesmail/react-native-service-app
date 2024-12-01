@@ -1,27 +1,45 @@
-import React,{useState} from 'react'
-import { Div, ScrollDiv,Image } from 'react-native-magnus'
-import Bottom_Navbar from '../../../Components/Bottom_Navbar/Bottom_Navbar'
+import React, { useContext, useState } from 'react'
+import { Div, ScrollDiv } from 'react-native-magnus'
+import Header from '../../../Components/Header/Header'
 import CustomColors from '../../../Config/CustomColors'
+import Bottom_Navbar from '../../../Components/Bottom_Navbar/Bottom_Navbar'
+import { useRoute } from '@react-navigation/native'
+import CustomButton from '../../../CustomComponents/CustomButton'
+import CustomImagePicker from '../../../CustomComponents/CustomImagePicker'
+import CustomLoading from '../../../CustomComponents/CustomLoading'
 import CustomInput from '../../../CustomComponents/CustomInput'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
+import Toast from 'react-native-toast-message'
 import axios from 'axios'
-import CustomImagePicker from '../../../CustomComponents/CustomImagePicker'
-import CustomButton from '../../../CustomComponents/CustomButton'
-import CustomLoading from '../../../CustomComponents/CustomLoading'
-import * as ImagePicker from 'expo-image-picker';
-import ConfigApi from '../../../Config/ConfigApi'
-import Header from '../../../Components/Header/Header'
+import { DataContext } from '../../../Context/DataProvider'
 
-
-export default function Add_Category() {
-    const { t } = useTranslation()
-    const [nameEn, setNameEn] = useState('');
-    const [nameAr, setNameAr] = useState('');
-    const [slug, setSlug] = useState('');
-    const [description, setDescription] = useState('');
+export default function Edit_Category() {
+    const { t } = useTranslation();
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { category } = route.params;
+  
+    const [nameEn, setNameEn] = useState(category.nameEn);
+    const [nameAr, setNameAr] = useState(category.nameAr);
+    const [slug, setSlug] = useState(category.slug);
+    const [description, setDescription] = useState(category.description);
     const [image, setImage] = useState(null);
     const [imagePath, setImagePath] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [
+        categories,
+        fetch_categories_data,
+        adsData,
+        fetch_ads_data,
+        portfoliosData,
+        fetch_users_portfolio,
+        countries,
+        fetch_contries_data,
+        adTypes,
+        fetch_adsTypes_data,
+        articles,
+        fetch_articles_data] = useContext(DataContext)
 
 
 
@@ -48,7 +66,8 @@ export default function Add_Category() {
 
 
     // Function to add category (with image upload)
-    const addCategory = async () => {
+    const handle_edit_category = async (id) => {
+        
         setLoading(true);
         try {
             const formData = new FormData();
@@ -69,36 +88,31 @@ export default function Add_Category() {
             }
 
             // Send data to the server
-            await axios.post(`${ConfigApi.API_URL}/api/add/categories`, formData, {
+            await axios.post(`${ConfigApi.API_URL}/api/update/categories/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
 
-            setNameEn('');
-            setNameAr('');
-            setSlug('');
-            setDescription('');
+
             setImage('');
             setImagePath('');
             setLoading(false);
+            fetch_categories_data();
             Toast.show({
                 type: 'success',
-                text1: t('added'),
+                text1: t('updated'),
             });
         } catch (error) {
             Toast.show({
                 type: 'error',
-                text1: t('error'),       
-              });
-            console.log(error);
+                text1: t('error'),
+            });
             setLoading(false);
         } finally {
             setLoading(false);
         }
     };
-
-
 
 
     return (
@@ -117,10 +131,10 @@ export default function Add_Category() {
                         <Div>
                             {imagePath && <Image source={{ uri: imagePath }} w={100} h={100} m='auto' />}
                         </Div>
-                    
+
                         <CustomImagePicker onPress={pickImage} />
                     </Div>
-                    {loading ? <CustomLoading /> : <CustomButton title={t('add')} onPress={() => addCategory()} />}
+                    {loading ? <CustomLoading /> : <CustomButton title={t('update')} onPress={() => handle_edit_category(category.id)} />}
                 </Div>
             </ScrollDiv>
             <Bottom_Navbar />

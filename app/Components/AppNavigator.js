@@ -20,6 +20,8 @@ import Wishlist from '../Screens/UserScreens/Wishlist/Wishlist'
 import Add_Post from '../Screens/UserScreens/Posts/Add_Post'
 import Support from '../Screens/UserScreens/Support/Support'
 import CategoryAds from '../Screens/UserScreens/CategoriesAds/CategoryAds'
+import Show_Categories from '../Screens/AdminScreens/Categories/Show_Categories'
+import Edit_Category from '../Screens/AdminScreens/Categories/Edit_Category'
 
 
 
@@ -28,7 +30,7 @@ import CategoryAds from '../Screens/UserScreens/CategoriesAds/CategoryAds'
 const Stack = createNativeStackNavigator()
 export default function AppNavigator() {
   const { t } = useTranslation()
-  
+
   return (
     <Stack.Navigator initialRouteName='Home'>
       {/* ---------------------------------------------------------------------------- */}
@@ -95,28 +97,22 @@ export default function AppNavigator() {
       <Stack.Screen
         name="Dashboard"
         component={Dashboard}
-        options={{
-          headerTitle: t('Dashboard'),
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 15
-          },
-          headerRight: () => <Drawer_Component />,
-
-        }} />
+        options={{ headerShown: false }} />
 
       <Stack.Screen
         name="Add_Category"
         component={Add_Category}
-        options={{
-          headerTitle: t('Dashboard'),
-          headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: 15
-          },
-          headerRight: () => <Drawer_Component />,
+        options={{ headerShown: false }} />
 
-        }} />
+      <Stack.Screen
+        name="Categories"
+        component={Show_Categories}
+        options={{ headerShown: false }} />
+
+      <Stack.Screen
+        name="Edit_Category"
+        component={Edit_Category}
+        options={{ headerShown: false }} />
 
 
     </Stack.Navigator>

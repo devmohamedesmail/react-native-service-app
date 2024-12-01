@@ -16,6 +16,7 @@ import CustomLoading from '../../../CustomComponents/CustomLoading'
 import CustomDropdownMenu from '../../../CustomComponents/CustomDropdownMenu/CustomDropdownMenu'
 import { DataContext } from '../../../Context/DataProvider'
 import CustomImagePicker from '../../../CustomComponents/CustomImagePicker'
+import Header from '../../../Components/Header/Header'
 
 
 
@@ -203,8 +204,9 @@ export default function Post_Ad() {
 
     return (
         <Div flex={1}>
+            <Header title={t('add-ad')} />
             <ScrollDiv bg={CustomColors.screenColor}>
-                <Div px={10}>
+                <Div px={10} pt={100}>
 
                     {/* ------------------------------------------- */}
                     <CustomDropdownMenu

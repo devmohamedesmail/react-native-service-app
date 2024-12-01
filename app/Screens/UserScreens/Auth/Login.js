@@ -27,45 +27,97 @@ export default function Login() {
 
 
   // ---------------- login function ----------------
+  // const handleLoginUser = async () => {
+  //   if (!email || !password) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: `${t('check-input')}`,
+
+  //       position: 'top',
+  //       visibilityTime: 5000,
+  //     });
+  //     return;
+
+  //   }
+  //   setLoading(true);
+
+  //   try {
+  //     const response = await axios.post(`${ConfigApi.API_URL}/api/login`, { email, password });
+
+  //     if (response.data.status === 'success') {
+  //       await setAuth(response.data)
+  //       Toast.show({
+  //         type: 'success',
+  //         text1: `${t('login-successful')}`,
+  //         text2: `${t('welocome')} 👋 ${auth.user.name}`,
+  //         position: 'top',
+  //         visibilityTime: 4000,
+  //       });
+
+
+
+
+  //       if (auth && auth.user.role === 'admin') {
+  //         navigation.navigate('Dashboard');
+  //       } else {
+  //         navigation.navigate('Home');
+  //       }
+  //     }
+
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: `${t('login-unsuccessful')}`,
+  //       text2: `${t('try-again')}`,
+  //       position: 'top',
+  //       visibilityTime: 4000,
+  //     });
+
+  //   } finally {
+  //     setLoading(false);
+
+  //   }
+  // }
+
   const handleLoginUser = async () => {
     if (!email || !password) {
       Toast.show({
         type: 'error',
         text1: `${t('check-input')}`,
-
         position: 'top',
         visibilityTime: 5000,
       });
       return;
-
     }
+
     setLoading(true);
 
     try {
       const response = await axios.post(`${ConfigApi.API_URL}/api/login`, { email, password });
 
       if (response.data.status === 'success') {
-        await setAuth(response.data)
+        const userData = response.data; // Store the response data
+
+        await setAuth(userData); // Set authentication data
         Toast.show({
           type: 'success',
           text1: `${t('login-successful')}`,
-          text2: `${t('welocome')} 👋 ${auth.user.name}`,
+          text2: `${t('welocome')} 👋 ${userData.user.name}`, // Use userData directly
           position: 'top',
           visibilityTime: 4000,
         });
 
-
-
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        if (auth && auth.user.role === 'admin') {
+        // Navigate based on role
+        if (userData.user.role === 'admin') {
           navigation.navigate('Dashboard');
         } else {
           navigation.navigate('Home');
         }
       }
-
     } catch (error) {
-      setLoading(false);
+      console.log('Login Error:', error);
       Toast.show({
         type: 'error',
         text1: `${t('login-unsuccessful')}`,
@@ -73,12 +125,13 @@ export default function Login() {
         position: 'top',
         visibilityTime: 4000,
       });
-
     } finally {
       setLoading(false);
-
     }
-  }
+  };
+
+
+
 
 
 

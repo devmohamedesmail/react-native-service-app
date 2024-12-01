@@ -16,6 +16,7 @@ import { DataContext } from '../../../Context/DataProvider';
 import CustomTextArea from '../../../CustomComponents/CustomTextArea';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Edit_Ad() {
 
@@ -32,7 +33,7 @@ export default function Edit_Ad() {
         fetch_adsTypes_data,
         articles,
         fetch_articles_data] = useContext(DataContext)
-   
+
     const [category_id, setCategoryID] = useState(adItem.category_id);
     const [adtype_id, setAdtypeID] = useState(adItem.adtype_id);
     const [country_id, setCountryID] = useState(adItem.country_id);
@@ -42,7 +43,7 @@ export default function Edit_Ad() {
     const [countryName, setCountryName] = useState('');
 
     const [categoryError, setCategoryError] = useState(false);
-    const [oldImages,setOldImages] = useState(adItem.images)
+    const [oldImages, setOldImages] = useState(adItem.images)
     const [images, setImages] = useState([]);
     const [imagePaths, setImagePaths] = useState([]);
     const [description, setDescription] = useState(adItem.description)
@@ -82,7 +83,7 @@ export default function Edit_Ad() {
             const fileNames = result.assets.map(asset => asset.fileName);
             const imagePaths = result.assets.map(asset => asset.uri);
 
-            // Update the state with the file names and image URIs
+          
             setImages(fileNames);
             setImagePaths(imagePaths);
         } else {
@@ -149,9 +150,9 @@ export default function Edit_Ad() {
             setTimeout(() => {
                 navigation.navigate('Account');
             }, 2000);
-           
+
         } catch (error) {
-              console.log(error)
+            console.log(error)
             setLoading(false);
             Toast.show({
                 type: 'error',
@@ -215,7 +216,8 @@ export default function Edit_Ad() {
 
 
                     <Div flexDir='row' my={10} justifyContent='space-between' alignItems='center' flexWrap='wrap'>
-                            {adItem.images.map((image, index) => (<Div>
+                        {adItem.images.map((image, index) => (
+                            <Div>
                                 <Image
                                     key={index}
                                     h={100}
@@ -228,7 +230,7 @@ export default function Edit_Ad() {
                                     }}
                                 />
                             </Div>))}
-                        </Div>
+                    </Div>
 
 
 
@@ -278,10 +280,7 @@ export default function Edit_Ad() {
                         <CustomLoading />
                         :
                         <CustomButton title={t('update')} onPress={() => update_ad()} />}
-
-
                 </Div>
-
             </ScrollDiv>
             <Bottom_Navbar />
         </Div>

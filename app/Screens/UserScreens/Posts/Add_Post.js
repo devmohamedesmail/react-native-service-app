@@ -1,5 +1,5 @@
-import React, { useContext, useState,useEffect } from 'react'
-import { Div, ScrollDiv ,Image} from 'react-native-magnus'
+import React, { useContext, useState, useEffect } from 'react'
+import { Div, ScrollDiv, Image } from 'react-native-magnus'
 import Header from '../../../Components/Header/Header'
 import Bottom_Navbar from '../../../Components/Bottom_Navbar/Bottom_Navbar'
 import CustomTextArea from '../../../CustomComponents/CustomTextArea'
@@ -20,7 +20,7 @@ export default function Add_Post() {
     const [images, setImages] = useState([]);
     const [imagePaths, setImagePaths] = useState([]);
     const [loading, setLoading] = useState(false)
-    const {auth}=useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
     const [
         categories,
         fetch_categories_data,
@@ -82,7 +82,7 @@ export default function Add_Post() {
 
     const Add_Post = async () => {
 
-setLoading(true)
+        setLoading(true)
         try {
             const formData = new FormData();
             formData.append('user_id', user_id);
@@ -144,7 +144,7 @@ setLoading(true)
 
     return (
         <Div flex={1}>
-            <Header />
+            <Header title={t('add-article')} />
             <ScrollDiv>
                 <Div pt={100} px={10}>
                     <CustomTextArea
@@ -153,9 +153,9 @@ setLoading(true)
                         onChangeText={(text) => setBody(text)}
                     />
 
-                  
+
                     <Div flexDir='row' justifyContent='flex-end' my={10}>
-                    <CustomImagePicker onPress={pickImages} />
+                        <CustomImagePicker onPress={pickImages} />
                     </Div>
 
                     <Div my={10} flexDir='row' flexWrap='wrap'>

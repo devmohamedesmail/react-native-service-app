@@ -18,32 +18,17 @@ import CustomColors from '../../../../Config/CustomColors';
 import { AuthContext } from '../../../../Context/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Basic_Info() {
-    const {auth,setAuth}=useContext(AuthContext)
-
-
-
-     // Check if auth is available
-     if (!auth || !auth.user) {
-        return (
-            <Div>
-                <Text>{t('loading')}</Text>
-            </Div>
-        );
-    }
-
-
+export default function Basic_Info({auth}) {
 
     const { t } = useTranslation();
     const [isModalVisible, setModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const [image, setImage] = useState(null);
     const [imagePath, setImagePath] = useState(null);
     const [name, setName] = useState(auth.user.name);
     const [phone, setPhone] = useState(auth.user.phone);
     const [address, setAddress] = useState(auth.user.address);
-    // const {auth,setAuth}=useContext(AuthContext)
+   
 
 
 

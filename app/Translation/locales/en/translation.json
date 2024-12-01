@@ -83,6 +83,7 @@
    "no-images":"No Images Found",
    "no-articles":"No Articles Found",
    "support-suggestion":"Support & Suggestion",
-   "logout":"Logout"
+   "logout":"Logout",
+   "dashboard":"Dashboard"
     
 }

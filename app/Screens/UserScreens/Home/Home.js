@@ -14,7 +14,7 @@ import Posted_Service from './parts/Need_Service/Posted_Service'
 export default function Home() {
   return (
     <Div flex={1}>
-      <Header title='Home' />
+      <Header title='Home' logo={true} back_btn={false} />
       <ScrollDiv>
 
         <Div position='relative'>
